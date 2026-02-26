@@ -55,8 +55,12 @@ const todayDate = getTodayDate(); // Ambil tanggal hari ini (contoh: "2026-02-26
 if (!appData.dailyTracker[todayDate]) {
     appData.dailyTracker[todayDate] = {
         puasa: false,
-        shalat: { subuh: false, dzuhur: false, ashar: false, maghrib: false, isya: false }
+        shalat: { subuh: false, dzuhur: false, ashar: false, maghrib: false, isya: false },
+        olahraga: { status: false, jenis: "", waktu: "" } // Tambahan baru
     };
+} else if (!appData.dailyTracker[todayDate].olahraga) {
+    // Ini agar data kemarin yang belum ada fitur olahraga tidak error
+    appData.dailyTracker[todayDate].olahraga = { status: false, jenis: "", waktu: "" };
 }
 if (!appData.moodJournal[todayDate]) {
     appData.moodJournal[todayDate] = { mood: "", sahur: "", buka: "" };
@@ -64,6 +68,20 @@ if (!appData.moodJournal[todayDate]) {
 
 // 2. Fungsi untuk menampilkan data hari ini ke dalam UI (HTML)
 function renderDailyTracker() {
+    // Render Data Olahraga
+    const olahragaData = todayTracker.olahraga || { status: false, jenis: "", waktu: "" };
+    const detailBox = document.getElementById('olahraga-details');
+    
+    document.getElementById('check-olahraga').checked = olahragaData.status;
+    document.getElementById('input-jenis-olahraga').value = olahragaData.jenis;
+    document.getElementById('select-waktu-olahraga').value = olahragaData.waktu;
+
+    // Logika menyembunyikan/memunculkan kolom isian
+    if (olahragaData.status) {
+        detailBox.style.display = "flex";
+    } else {
+        detailBox.style.display = "none";
+    }
     const todayTracker = appData.dailyTracker[todayDate];
     const todayMood = appData.moodJournal[todayDate];
 
@@ -92,6 +110,22 @@ function renderDailyTracker() {
 
 // 3. Pasang Event Listener untuk mendeteksi perubahan dan menyimpannya
 function setupEventListeners() {
+    // Listener Olahraga
+    document.getElementById('check-olahraga').addEventListener('change', (e) => {
+        appData.dailyTracker[todayDate].olahraga.status = e.target.checked;
+        saveData(appData);
+        renderDailyTracker(); // Refresh untuk memunculkan/menyembunyikan detail
+    });
+
+    document.getElementById('input-jenis-olahraga').addEventListener('input', (e) => {
+        appData.dailyTracker[todayDate].olahraga.jenis = e.target.value;
+        saveData(appData);
+    });
+
+    document.getElementById('select-waktu-olahraga').addEventListener('change', (e) => {
+        appData.dailyTracker[todayDate].olahraga.waktu = e.target.value;
+        saveData(appData);
+    });
     // Listener untuk Puasa
     document.getElementById('check-puasa').addEventListener('change', (e) => {
         appData.dailyTracker[todayDate].puasa = e.target.checked;
