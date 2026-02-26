@@ -67,38 +67,48 @@ if (!appData.moodJournal[todayDate]) {
 }
 
 // 2. Fungsi untuk menampilkan data hari ini ke dalam UI (HTML)
+// 2. Fungsi untuk menampilkan data hari ini ke dalam UI (HTML)
 function renderDailyTracker() {
-    // Render Data Olahraga
-    const olahragaData = todayTracker.olahraga || { status: false, jenis: "", waktu: "" };
-    const detailBox = document.getElementById('olahraga-details');
-    
-    document.getElementById('check-olahraga').checked = olahragaData.status;
-    document.getElementById('input-jenis-olahraga').value = olahragaData.jenis;
-    document.getElementById('select-waktu-olahraga').value = olahragaData.waktu;
-
-    // Logika menyembunyikan/memunculkan kolom isian
-    if (olahragaData.status) {
-        detailBox.style.display = "flex";
-    } else {
-        detailBox.style.display = "none";
-    }
+    // PENTING: Variabel ini harus dideklarasikan paling atas!
     const todayTracker = appData.dailyTracker[todayDate];
     const todayMood = appData.moodJournal[todayDate];
 
-    // Set nilai checkbox puasa
+    // --- Render Data Olahraga ---
+    const olahragaData = todayTracker.olahraga || { status: false, jenis: "", waktu: "" };
+    const detailBox = document.getElementById('olahraga-details');
+    
+    if (document.getElementById('check-olahraga')) {
+        document.getElementById('check-olahraga').checked = olahragaData.status;
+    }
+    if (document.getElementById('input-jenis-olahraga')) {
+        document.getElementById('input-jenis-olahraga').value = olahragaData.jenis;
+    }
+    if (document.getElementById('select-waktu-olahraga')) {
+        document.getElementById('select-waktu-olahraga').value = olahragaData.waktu;
+    }
+
+    // Logika menyembunyikan/memunculkan kolom isian
+    if (detailBox) {
+        if (olahragaData.status) {
+            detailBox.style.display = "flex";
+        } else {
+            detailBox.style.display = "none";
+        }
+    }
+
+    // --- Render Ibadah & Mood ---
     document.getElementById('check-puasa').checked = todayTracker.puasa;
 
-    // Set nilai checkbox shalat
     const shalatList = ['subuh', 'dzuhur', 'ashar', 'maghrib', 'isya'];
     shalatList.forEach(waktu => {
-        document.getElementById(`check-${waktu}`).checked = todayTracker.shalat[waktu];
+        if (document.getElementById(`check-${waktu}`)) {
+            document.getElementById(`check-${waktu}`).checked = todayTracker.shalat[waktu];
+        }
     });
 
-    // Set nilai text input sahur & buka
-    document.getElementById('input-sahur').value = todayMood.sahur;
-    document.getElementById('input-buka').value = todayMood.buka;
+    if (document.getElementById('input-sahur')) document.getElementById('input-sahur').value = todayMood.sahur;
+    if (document.getElementById('input-buka')) document.getElementById('input-buka').value = todayMood.buka;
 
-    // Set tombol mood yang aktif
     document.querySelectorAll('.mood-btn').forEach(btn => {
         if (btn.dataset.mood === todayMood.mood) {
             btn.classList.add('active');
@@ -111,45 +121,65 @@ function renderDailyTracker() {
 // 3. Pasang Event Listener untuk mendeteksi perubahan dan menyimpannya
 function setupEventListeners() {
     // Listener Olahraga
-    document.getElementById('check-olahraga').addEventListener('change', (e) => {
-        appData.dailyTracker[todayDate].olahraga.status = e.target.checked;
-        saveData(appData);
-        renderDailyTracker(); // Refresh untuk memunculkan/menyembunyikan detail
-    });
+    const checkOlahraga = document.getElementById('check-olahraga');
+    if (checkOlahraga) {
+        checkOlahraga.addEventListener('change', (e) => {
+            if (!appData.dailyTracker[todayDate].olahraga) {
+                appData.dailyTracker[todayDate].olahraga = { status: false, jenis: "", waktu: "" };
+            }
+            appData.dailyTracker[todayDate].olahraga.status = e.target.checked;
+            saveData(appData);
+            renderDailyTracker(); // Refresh untuk memunculkan/menyembunyikan detail
+        });
+    }
 
-    document.getElementById('input-jenis-olahraga').addEventListener('input', (e) => {
-        appData.dailyTracker[todayDate].olahraga.jenis = e.target.value;
-        saveData(appData);
-    });
+    if (document.getElementById('input-jenis-olahraga')) {
+        document.getElementById('input-jenis-olahraga').addEventListener('input', (e) => {
+            appData.dailyTracker[todayDate].olahraga.jenis = e.target.value;
+            saveData(appData);
+        });
+    }
 
-    document.getElementById('select-waktu-olahraga').addEventListener('change', (e) => {
-        appData.dailyTracker[todayDate].olahraga.waktu = e.target.value;
-        saveData(appData);
-    });
+    if (document.getElementById('select-waktu-olahraga')) {
+        document.getElementById('select-waktu-olahraga').addEventListener('change', (e) => {
+            appData.dailyTracker[todayDate].olahraga.waktu = e.target.value;
+            saveData(appData);
+        });
+    }
+
     // Listener untuk Puasa
-    document.getElementById('check-puasa').addEventListener('change', (e) => {
-        appData.dailyTracker[todayDate].puasa = e.target.checked;
-        saveData(appData);
-    });
+    if (document.getElementById('check-puasa')) {
+        document.getElementById('check-puasa').addEventListener('change', (e) => {
+            appData.dailyTracker[todayDate].puasa = e.target.checked;
+            saveData(appData);
+            if (typeof renderQuranAndStreak === "function") renderQuranAndStreak(); // Update streak otomatis
+        });
+    }
 
     // Listener untuk Shalat
     const shalatList = ['subuh', 'dzuhur', 'ashar', 'maghrib', 'isya'];
     shalatList.forEach(waktu => {
-        document.getElementById(`check-${waktu}`).addEventListener('change', (e) => {
-            appData.dailyTracker[todayDate].shalat[waktu] = e.target.checked;
-            saveData(appData);
-        });
+        if (document.getElementById(`check-${waktu}`)) {
+            document.getElementById(`check-${waktu}`).addEventListener('change', (e) => {
+                appData.dailyTracker[todayDate].shalat[waktu] = e.target.checked;
+                saveData(appData);
+            });
+        }
     });
 
     // Listener untuk Input Teks (Sahur & Buka)
-    document.getElementById('input-sahur').addEventListener('input', (e) => {
-        appData.moodJournal[todayDate].sahur = e.target.value;
-        saveData(appData);
-    });
-    document.getElementById('input-buka').addEventListener('input', (e) => {
-        appData.moodJournal[todayDate].buka = e.target.value;
-        saveData(appData);
-    });
+    if (document.getElementById('input-sahur')) {
+        document.getElementById('input-sahur').addEventListener('input', (e) => {
+            appData.moodJournal[todayDate].sahur = e.target.value;
+            saveData(appData);
+        });
+    }
+    if (document.getElementById('input-buka')) {
+        document.getElementById('input-buka').addEventListener('input', (e) => {
+            appData.moodJournal[todayDate].buka = e.target.value;
+            saveData(appData);
+        });
+    }
 
     // Listener untuk Tombol Mood
     document.querySelectorAll('.mood-btn').forEach(btn => {
@@ -157,7 +187,7 @@ function setupEventListeners() {
             const selectedMood = e.target.dataset.mood;
             appData.moodJournal[todayDate].mood = selectedMood;
             saveData(appData);
-            renderDailyTracker(); // Refresh UI untuk update tombol yang aktif
+            renderDailyTracker(); // Refresh UI
         });
     });
 }
