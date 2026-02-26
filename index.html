@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramadhan Tracker Gen-Z</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="brutal-box header-box">
+        <h1>🌙 Ramadhan Tracker</h1>
+        <p id="current-date-display">Memuat tanggal...</p>
+    </header>
+
+    <main class="grid-container">
+        <section id="daily-tracker-section" class="brutal-box bg-yellow">
+            <h2>✅ Ibadah & Mood Hari Ini</h2>
+            <div id="daily-tracker-content">
+                <div class="tracker-item">
+                    <label class="brutal-checkbox">
+                        <input type="checkbox" id="check-puasa">
+                        <span class="checkmark"></span>
+                        Puasa Hari Ini
+                    </label>
+                </div>
+                
+                <hr class="brutal-hr">
+                <h3>🕌 Shalat Wajib</h3>
+                <div class="checkbox-grid">
+                    <label class="brutal-checkbox"><input type="checkbox" id="check-subuh"><span class="checkmark"></span> Subuh</label>
+                    <label class="brutal-checkbox"><input type="checkbox" id="check-dzuhur"><span class="checkmark"></span> Dzuhur</label>
+                    <label class="brutal-checkbox"><input type="checkbox" id="check-ashar"><span class="checkmark"></span> Ashar</label>
+                    <label class="brutal-checkbox"><input type="checkbox" id="check-maghrib"><span class="checkmark"></span> Maghrib</label>
+                    <label class="brutal-checkbox"><input type="checkbox" id="check-isya"><span class="checkmark"></span> Isya</label>
+                </div>
+
+                <hr class="brutal-hr">
+                <h3>🎭 Mood & Jurnal</h3>
+                <div class="mood-buttons">
+                    <button class="mood-btn" data-mood="🤩">🤩</button>
+                    <button class="mood-btn" data-mood="🙂">🙂</button>
+                    <button class="mood-btn" data-mood="😴">😴</button>
+                    <button class="mood-btn" data-mood="🥵">🥵</button>
+                </div>
+                <input type="text" id="input-sahur" class="brutal-input" placeholder="Menu Sahur...">
+                <input type="text" id="input-buka" class="brutal-input" placeholder="Menu Buka...">
+            </div>
+        </section>
+
+        <section id="quran-section" class="brutal-box bg-pink">
+            <h2>📖 Progress Tilawah & Streak</h2>
+            <div id="quran-content">
+                <div class="streak-box brutal-box-small">
+                    <h3>🔥 Streak Puasa</h3>
+                    <p class="streak-count"><span id="streak-number">0</span> Hari Beruntun!</p>
+                </div>
+
+                <hr class="brutal-hr">
+                
+                <h3>📖 Target: 30 Juz</h3>
+                <div class="progress-container">
+                    <div id="quran-progress-bar" class="progress-bar"></div>
+                </div>
+                <p class="progress-text"><span id="juz-progress-text">0</span> / 30 Juz Selesai</p>
+
+                <div class="quran-inputs">
+                    <div>
+                        <label>Juz Saat Ini:</label>
+                        <input type="number" id="input-juz" class="brutal-input" min="0" max="30" placeholder="0">
+                    </div>
+                    <div>
+                        <label>Surah:</label>
+                        <input type="text" id="input-surah" class="brutal-input" placeholder="Misal: Al-Baqarah">
+                    </div>
+                    <div>
+                        <label>Ayat:</label>
+                        <input type="number" id="input-ayah" class="brutal-input" min="0" placeholder="0">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+<section id="imsakiyah-section" class="brutal-box bg-cyan">
+            <h2>⏱️ Jadwal Imsakiyah</h2>
+            <div id="imsakiyah-content">
+                <div class="location-header">
+                    <h3>📍 <span id="city-name-display">Memuat lokasi...</span></h3>
+                    <p id="hijri-date-display">Memuat tanggal hijriah...</p>
+                </div>
+
+                <div class="prayer-grid">
+                    <div class="prayer-card brutal-box-small">
+                        <div class="prayer-name">Imsak</div>
+                        <div class="prayer-time" id="time-imsak">--:--</div>
+                    </div>
+                    <div class="prayer-card brutal-box-small">
+                        <div class="prayer-name">Subuh</div>
+                        <div class="prayer-time" id="time-subuh">--:--</div>
+                    </div>
+                    <div class="prayer-card brutal-box-small">
+                        <div class="prayer-name">Dzuhur</div>
+                        <div class="prayer-time" id="time-dzuhur">--:--</div>
+                    </div>
+                    <div class="prayer-card brutal-box-small">
+                        <div class="prayer-name">Ashar</div>
+                        <div class="prayer-time" id="time-ashar">--:--</div>
+                    </div>
+                    <div class="prayer-card brutal-box-small highlight-card">
+                        <div class="prayer-name">Maghrib (Buka)</div>
+                        <div class="prayer-time" id="time-maghrib">--:--</div>
+                    </div>
+                    <div class="prayer-card brutal-box-small">
+                        <div class="prayer-name">Isya</div>
+                        <div class="prayer-time" id="time-isya">--:--</div>
+                    </div>
+                </div> <hr class="brutal-hr">
+                <h3>🔍 Ganti Kota</h3>
+                <div class="search-city-container">
+                    <input type="text" id="input-city" class="brutal-input" placeholder="Ketik kota (Cth: Jakarta)">
+                    <button id="btn-search-city" class="brutal-button">Cari</button>
+                </div>
+                <ul id="city-search-results" class="city-results-list"></ul>
+                
+            </div>
+        </section>
+
+        <section id="finance-section" class="brutal-box bg-green">
+            <h2>💸 Bukber & Sedekah Tracker</h2>
+            <div id="finance-content">
+                <div class="finance-summary brutal-box-small">
+                    <p><strong>Target Budget Bukber:</strong> Rp <span id="display-budget">0</span></p>
+                    <p><strong>Total Terpakai:</strong> Rp <span id="display-expense">0</span></p>
+                    <p class="highlight-text"><strong>Sisa Budget:</strong> Rp <span id="display-remaining">0</span></p>
+                </div>
+
+                <div class="finance-inputs">
+                    <div>
+                        <label>Set Budget (Rp):</label>
+                        <input type="number" id="input-budget" class="brutal-input" placeholder="0">
+                    </div>
+                    <div>
+                        <label>Total Sedekah (Rp):</label>
+                        <input type="number" id="input-sedekah" class="brutal-input" placeholder="0">
+                    </div>
+                </div>
+
+                <hr class="brutal-hr">
+                
+                <h3>📝 Catat Pengeluaran Bukber</h3>
+                <div class="add-expense-container">
+                    <input type="text" id="expense-desc" class="brutal-input" placeholder="Acara (Cth: Bukber SMA)">
+                    <input type="number" id="expense-amount" class="brutal-input" placeholder="Nominal (Rp)">
+                    <button id="btn-add-expense" class="brutal-button">Tambah</button>
+                </div>
+
+                <ul id="expense-list" class="expense-list">
+                    </ul>
+                <hr class="brutal-hr">
+                <h3>🌾 Kalkulator Zakat Fitrah</h3>
+                <div class="zakat-container brutal-box-small">
+                    <label>Tanggungan (Orang):</label>
+                    <input type="number" id="zakat-orang" class="brutal-input" placeholder="Misal: 4">
+                    <label>Harga Beras/Kg (Rp):</label>
+                    <input type="number" id="zakat-harga" class="brutal-input" placeholder="Misal: 15000">
+                    <button id="btn-hitung-zakat" class="brutal-button" style="width: 100%; margin-top: 10px;">Hitung Zakat</button>
+                    <p class="highlight-text" style="margin-top: 15px;"><strong>Total: Rp <span id="zakat-total">0</span></strong></p>
+                    <small>*Sesuai standar 2.5 kg beras per orang</small>
+                </div>
+            </div>
+        </section>
+    </main>
+<section id="settings-section" class="brutal-box bg-yellow" style="margin-top: 20px;">
+        <h2>⚙️ Pengaturan & Backup Data</h2>
+        <div class="backup-container">
+            <button id="btn-export" class="brutal-button" style="background-color: #00bf63;">📥 Download Data (Backup)</button>
+            <div class="import-box brutal-box-small" style="margin-bottom: 0;">
+                <label style="font-weight: bold; display: block; margin-bottom: 5px;">Upload Data (Restore):</label>
+                <input type="file" id="input-import" accept=".json" class="brutal-input" style="margin-bottom: 0;">
+            </div>
+        </div>
+    </section>
+    <script src="script.js"></script>
+</body>
+</html>

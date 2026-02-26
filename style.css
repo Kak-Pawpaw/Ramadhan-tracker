@@ -1,0 +1,370 @@
+/* Reset Dasar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace; /* Font ala mesin ketik/coding */
+}
+
+body {
+    background-color: #f0f0f0;
+    padding: 20px;
+    color: #000;
+}
+
+/* Base Brutalism Style */
+.brutal-box {
+    border: 4px solid #000;
+    box-shadow: 8px 8px 0px #000;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: transform 0.2s ease;
+}
+
+.brutal-box:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 12px 12px 0px #000;
+}
+
+.header-box {
+    background-color: #fff;
+    text-align: center;
+}
+
+/* Warna Vibrant */
+.bg-yellow { background-color: #ffde59; }
+.bg-pink { background-color: #ff914d; }
+.bg-cyan { background-color: #00bf63; }
+.bg-green { background-color: #c1ff72; }
+
+/* Grid Layout untuk Layar Lebar */
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+@media (min-width: 768px) {
+    .grid-container {
+        grid-template-columns: 1fr 1fr; /* Membagi jadi 2 kolom di PC/Tablet */
+    }
+}
+
+h2 {
+    border-bottom: 3px solid #000;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+/* Styling Checkbox Brutalism */
+.brutal-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.brutal-checkbox input {
+    width: 24px;
+    height: 24px;
+    accent-color: #000; /* Warna hitam saat dicentang */
+    border: 2px solid #000;
+    cursor: pointer;
+}
+
+.checkbox-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.brutal-hr {
+    border: 2px solid #000;
+    margin: 15px 0;
+}
+
+h3 {
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+/* Styling Mood & Input Jurnal */
+.mood-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.mood-btn {
+    font-size: 1.5em;
+    padding: 10px;
+    background: #fff;
+    border: 3px solid #000;
+    border-radius: 8px;
+    box-shadow: 4px 4px 0px #000;
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+.mood-btn:active, .mood-btn.active {
+    transform: translate(4px, 4px);
+    box-shadow: 0px 0px 0px #000;
+    background-color: #000;
+}
+
+.brutal-input {
+    width: 100%;
+    padding: 12px;
+    border: 3px solid #000;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    font-size: 1em;
+    box-shadow: 4px 4px 0px #000;
+    outline: none;
+}
+
+.brutal-input:focus {
+    background-color: #f0f0f0;
+}
+/* Styling Tahap 4: Quran & Streak */
+.brutal-box-small {
+    background-color: #fff;
+    border: 3px solid #000;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 4px 4px 0px #000;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.streak-count {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #ff3131; /* Warna merah api / menyala */
+    margin-top: 5px;
+}
+
+.progress-container {
+    width: 100%;
+    height: 30px;
+    border: 3px solid #000;
+    border-radius: 15px;
+    background-color: #fff;
+    overflow: hidden;
+    margin-bottom: 10px;
+    box-shadow: 4px 4px 0px #000;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%; /* Lebar ini akan diatur lewat JavaScript */
+    background-color: #ffde59; /* Warna kuning vibrant */
+    border-right: 3px solid #000;
+    transition: width 0.4s ease-out; /* Animasi mulus saat bar bertambah */
+}
+
+.progress-text {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.quran-inputs {
+    display: grid;
+    grid-template-columns: 1fr; /* 1 Kolom di HP */
+    gap: 10px;
+}
+
+/* Supaya di layar agak lebar inputnya bersebelahan */
+@media (min-width: 600px) {
+    .quran-inputs {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+.quran-inputs label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+/* Styling Tahap 5: Finance & Bukber */
+.finance-summary {
+    background-color: #fff;
+    text-align: left;
+    font-size: 1.1em;
+}
+
+.highlight-text {
+    color: #ff3131; /* Warna merah penegas */
+    font-size: 1.2em;
+    margin-top: 5px;
+    border-top: 2px dashed #000;
+    padding-top: 5px;
+}
+
+.finance-inputs {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.add-expense-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+@media (min-width: 600px) {
+    .finance-inputs {
+        grid-template-columns: 1fr 1fr;
+    }
+    .add-expense-container {
+        flex-direction: row; /* Bersebelahan di layar lebar */
+    }
+}
+
+.brutal-button {
+    padding: 12px 20px;
+    background-color: #000;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1em;
+    border: 3px solid #000;
+    cursor: pointer;
+    box-shadow: 4px 4px 0px #c1ff72; /* Bayangan pakai warna background section */
+    transition: 0.1s;
+}
+
+.brutal-button:active {
+    transform: translate(4px, 4px);
+    box-shadow: 0px 0px 0px #c1ff72;
+}
+
+.expense-list {
+    list-style: none;
+    padding: 0;
+}
+
+.expense-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    border: 2px solid #000;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 3px 3px 0px #000;
+}
+
+.delete-btn {
+    background-color: #ff3131;
+    color: white;
+    border: 2px solid #000;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 10px;
+}
+/* Styling Tahap 6: Imsakiyah */
+.location-header {
+    text-align: center;
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 3px solid #000;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 4px 4px 0px #000;
+}
+
+#hijri-date-display {
+    font-weight: bold;
+    color: #555;
+    margin-top: 5px;
+}
+
+.prayer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* 3 Kolom */
+    gap: 10px;
+}
+
+/* Penyesuaian untuk layar HP kecil */
+@media (max-width: 500px) {
+    .prayer-grid {
+        grid-template-columns: 1fr 1fr; /* Jadi 2 Kolom di HP */
+    }
+}
+
+.prayer-card {
+    padding: 15px 5px;
+    margin-bottom: 0; /* Reset margin dari brutal-box-small */
+}
+
+.prayer-name {
+    font-size: 0.9em;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.prayer-time {
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+/* Highlight khusus untuk waktu Maghrib (Buka Puasa) */
+.highlight-card {
+    background-color: #000;
+    color: #fff;
+    box-shadow: 4px 4px 0px #ffde59; /* Shadow kuning */
+}
+
+.highlight-card .prayer-time {
+    color: #ffde59;
+}
+/* Styling Tambahan (Pencarian Kota & Backup) */
+.search-city-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.city-results-list {
+    list-style: none;
+    padding: 0;
+    max-height: 150px;
+    overflow-y: auto;
+    border: 3px solid #000;
+    background: #fff;
+    display: none; /* Sembunyikan saat kosong */
+    box-shadow: 4px 4px 0px #000;
+}
+
+.city-results-list li {
+    padding: 10px;
+    border-bottom: 2px solid #000;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.city-results-list li:hover {
+    background-color: #c1ff72;
+}
+
+.backup-container {
+    display: grid;
+    gap: 15px;
+}
+
+@media (min-width: 600px) {
+    .backup-container {
+        grid-template-columns: 1fr 1fr;
+    }
+}
