@@ -529,22 +529,28 @@ document.getElementById('input-import').addEventListener('change', (event) => {
 });
 // --- LOGIKA ACCORDION (BUKA-TUTUP BOX) ---
 
+// --- LOGIKA ACCORDION (BUKA-TUTUP BOX) ---
+
 function setupAccordions() {
     const headers = document.querySelectorAll('.collapsible-header');
     
     headers.forEach(header => {
+        // Ambil elemen konten tepat di bawah header
+        const content = header.nextElementSibling;
+        
+        // 1. KUNCI UTAMA: Paksa konten tertutup (hidden) saat web pertama kali dibuka
+        content.style.display = "none";
+        
+        // 2. Pasang logika klik untuk buka-tutup
         header.addEventListener('click', () => {
-            // 1. Putar ikon panah dan berikan jarak
+            // Putar ikon panah
             header.classList.toggle('active');
             
-            // 2. Ambil elemen konten tepat di bawah header (div collapsible-content)
-            const content = header.nextElementSibling;
-            
-            // 3. Tampilkan atau sembunyikan konten
-            if (content.style.display === "block") {
-                content.style.display = "none";
-            } else {
+            // Tampilkan atau sembunyikan konten
+            if (content.style.display === "none") {
                 content.style.display = "block";
+            } else {
+                content.style.display = "none";
             }
         });
     });
