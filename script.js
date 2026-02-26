@@ -527,3 +527,28 @@ document.getElementById('input-import').addEventListener('change', (event) => {
     };
     reader.readAsText(file); // Mulai baca file
 });
+// --- LOGIKA ACCORDION (BUKA-TUTUP BOX) ---
+
+function setupAccordions() {
+    const headers = document.querySelectorAll('.collapsible-header');
+    
+    headers.forEach(header => {
+        header.addEventListener('click', () => {
+            // 1. Putar ikon panah dan berikan jarak
+            header.classList.toggle('active');
+            
+            // 2. Ambil elemen konten tepat di bawah header (div collapsible-content)
+            const content = header.nextElementSibling;
+            
+            // 3. Tampilkan atau sembunyikan konten
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        });
+    });
+}
+
+// Panggil fungsinya agar berjalan
+setupAccordions();
